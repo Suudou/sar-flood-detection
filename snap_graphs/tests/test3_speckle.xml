@@ -1,0 +1,74 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>D:\TexasBeryl\S1A_IW_GRDH_1SDV_20240629T002653_20240629T002718_054531_06A2F0_DE05.SAFE\manifest.safe</file>
+      <copyMetadata>true</copyMetadata>
+    </parameters>
+  </node>
+  <node id="Subset">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>Intensity_VV</sourceBands>
+      <geoRegion>POLYGON((-95.35 29.05, -94.80 29.05, -94.80 29.35, -95.35 29.35, -95.35 29.05))</geoRegion>
+      <subSamplingX>1</subSamplingX>
+      <subSamplingY>1</subSamplingY>
+      <fullSwath>false</fullSwath>
+      <copyMetadata>true</copyMetadata>
+    </parameters>
+  </node>
+  <node id="Calibration">
+    <operator>Calibration</operator>
+    <sources>
+      <sourceProduct refid="Subset"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>Intensity_VV</sourceBands>
+      <auxFile>Product Auxiliary File</auxFile>
+      <outputImageInComplex>false</outputImageInComplex>
+      <outputImageScaleInDb>false</outputImageScaleInDb>
+      <createGammaBand>false</createGammaBand>
+      <createBetaBand>false</createBetaBand>
+      <selectedPolarisations>VV</selectedPolarisations>
+      <outputSigmaBand>true</outputSigmaBand>
+      <outputGammaBand>false</outputGammaBand>
+      <outputBetaBand>false</outputBetaBand>
+    </parameters>
+  </node>
+  <node id="Speckle-Filter">
+    <operator>Speckle-Filter</operator>
+    <sources>
+      <sourceProduct refid="Calibration"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands>Sigma0_VV</sourceBands>
+      <filter>Refined Lee</filter>
+      <filterSizeX>3</filterSizeX>
+      <filterSizeY>3</filterSizeY>
+      <dampingFactor>2</dampingFactor>
+      <estimateENL>true</estimateENL>
+      <enl>1.0</enl>
+      <numLooksStr>1</numLooksStr>
+      <windowSize>5x5</windowSize>
+      <targetWindowSizeStr>3x3</targetWindowSizeStr>
+      <sigmaStr>0.9</sigmaStr>
+      <anSize>50</anSize>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Speckle-Filter"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>D:\TexasBeryl\output\test3_speckle.tif</file>
+      <formatName>GeoTIFF</formatName>
+    </parameters>
+  </node>
+</graph>
