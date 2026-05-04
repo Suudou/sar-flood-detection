@@ -22,6 +22,7 @@ but cannot resolve urban building-level inundation — a known
 trade-off versus commercial high-resolution X-band SAR.
 
 ## Pipeline
+```
 Sentinel-1 GRD (.SAFE)
 │
 ├── SNAP preprocessing (flood_pipeline.xml)
@@ -32,6 +33,7 @@ Sentinel-1 GRD (.SAFE)
 │
 └── Python change detection (notebooks/02_change_detection.ipynb)
 Δ sigma0 → permanent water mask → threshold → cleanup → flood mask
+```
 
 Detailed operator-by-operator rationale: [`snap_graphs/README.md`](snap_graphs/README.md)
 
@@ -55,6 +57,8 @@ Detailed operator-by-operator rationale: [`snap_graphs/README.md`](snap_graphs/R
   the pipeline in SNAP demonstrates familiarity with industry tooling.
 
 ## Repository structure
+```
+
 ├── data/                       Documentation of source data and AOI, might be empty, due to a big tiffs
 ├── docs/                       Output figures (PNG)
 ├── notebooks/
@@ -66,7 +70,7 @@ Detailed operator-by-operator rationale: [`snap_graphs/README.md`](snap_graphs/R
 │   └── tests/                  Diagnostic test graphs (incremental verification)
 ├── environment.yml             Conda environment spec
 └── README.md
-
+```
 ## Reproducing this analysis
 
 ### Prerequisites
